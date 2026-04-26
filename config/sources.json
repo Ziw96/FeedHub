@@ -1,0 +1,55 @@
+[
+  {
+    "id": "openai-blog",
+    "name": "OpenAI Blog",
+    "type": "rss",
+    "url": "https://openai.com/news/rss.xml",
+    "base_url": "https://openai.com",
+    "priority": 10,
+    "official": true,
+    "enabled": true
+  },
+  {
+    "id": "anthropic-news",
+    "name": "Anthropic News",
+    "type": "html",
+    "url": "https://www.anthropic.com/news",
+    "base_url": "https://www.anthropic.com",
+    "priority": 10,
+    "official": true,
+    "enabled": true
+  },
+  {
+    "id": "google-gemini-updates",
+    "name": "Google Gemini Updates",
+    "type": "html",
+    "url": "https://blog.google/technology/google-deepmind/",
+    "base_url": "https://blog.google",
+    "priority": 9,
+    "official": true,
+    "enabled": true
+  },
+  {
+    "id": "deepseek-news",
+    "name": "DeepSeek News",
+    "type": "html",
+    "url": "https://api-docs.deepseek.com/news",
+    "base_url": "https://api-docs.deepseek.com",
+    "priority": 8,
+    "official": true,
+    "latest_link_pattern": "/news/news",
+    "enabled": true
+  },
+  {
+    "id": "openai-x",
+    "name": "OpenAI on X",
+    "type": "x",
+    "url": "https://x.com/OpenAI",
+    "base_url": "https://x.com",
+    "priority": 6,
+    "official": false,
+    "enabled": false,
+    "handle": "OpenAI",
+    "max_items": 5
+  }
+]
