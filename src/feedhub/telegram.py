@@ -12,13 +12,17 @@ TELEGRAM_TEXT_LIMIT = 4000
 
 
 def send_latest_digest() -> Path:
-    config = load_telegram_config()
     digest_path = latest_digest_path()
     digest_text = digest_path.read_text(encoding="utf-8")
-    chunks = chunk_message(digest_text, TELEGRAM_TEXT_LIMIT)
+    send_text(digest_text)
+    return digest_path
+
+
+def send_text(text: str) -> None:
+    config = load_telegram_config()
+    chunks = chunk_message(text, TELEGRAM_TEXT_LIMIT)
     for chunk in chunks:
         _send_message(config, chunk)
-    return digest_path
 
 
 def load_telegram_config() -> Dict[str, str]:

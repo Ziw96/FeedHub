@@ -327,8 +327,6 @@ class _ReadableHTMLParser(HTMLParser):
             normalized = _normalize_for_summary(text)
             if not normalized or normalized in seen:
                 continue
-            if len(normalized) < 40 and segments:
-                continue
             if _looks_like_css_or_script(normalized):
                 continue
             seen.add(normalized)
@@ -357,7 +355,7 @@ class _ReadableHTMLParser(HTMLParser):
             return
         text = _normalize_for_summary(" ".join(self._block_buffer))
         self._block_buffer = []
-        if not text or len(text) < 20:
+        if not text or len(text) < 8:
             return
         if _looks_like_css_or_script(text):
             return

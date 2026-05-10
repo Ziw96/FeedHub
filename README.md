@@ -44,6 +44,12 @@ For scheduled runs, use the shell wrappers:
 ```
 
 They automatically run from the repo root and prefer `.venv/bin/python` when it exists.
+All wrappers delegate to the generic runner, so ad hoc commands can also use:
+
+```bash
+./scripts/run_feedhub.sh collect
+./scripts/run_feedhub.sh monitor-openai-releases
+```
 
 ## X ingestion
 
@@ -96,6 +102,23 @@ Then send the latest digest with:
 ```
 
 For a full daily schedule, run digest generation first and push a few minutes later.
+
+## OpenAI model release monitor
+
+To watch OpenAI model releases, ChatGPT model picker/default changes, and model availability updates, run:
+
+```bash
+./scripts/run_openai_release_monitor.sh
+```
+
+The first run records a baseline and does not push historical items. Later runs send matching new changes to the Telegram channel configured in `config/telegram.json`.
+The monitored pages live in `config/sources.json`; release-specific keywords live in `config/openai_release_keywords.json`.
+
+Example cron:
+
+```cron
+0 9 * * * /path/to/FeedHub/scripts/run_openai_release_monitor.sh >> /path/to/FeedHub/logs/openai-release-monitor.log 2>&1
+```
 
 ## Next steps
 

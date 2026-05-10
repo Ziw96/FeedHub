@@ -42,6 +42,45 @@ def test_load_sources_keeps_existing_types_and_reads_x_fields(monkeypatch, tmp_p
     assert sources[1].max_items == 5
 
 
+def test_load_sources_can_include_disabled_sources(monkeypatch, tmp_path):
+    config_dir = tmp_path / "config"
+    config_dir.mkdir()
+    (config_dir / "sources.json").write_text(
+        """
+        [
+          {
+            "id": "enabled-source",
+            "name": "Enabled",
+            "type": "html",
+            "url": "https://example.com/enabled",
+            "base_url": "https://example.com",
+            "priority": 1,
+            "official": true,
+            "enabled": true
+          },
+          {
+            "id": "disabled-source",
+            "name": "Disabled",
+            "type": "html",
+            "url": "https://example.com/disabled",
+            "base_url": "https://example.com",
+            "priority": 1,
+            "official": true,
+            "enabled": false
+          }
+        ]
+        """.strip(),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr("src.feedhub.config.project_root", lambda: tmp_path)
+
+    assert [source.id for source in load_sources()] == ["enabled-source"]
+    assert [source.id for source in load_sources(include_disabled=True)] == [
+        "enabled-source",
+        "disabled-source",
+    ]
+
+
 def test_load_x_config_requires_bearer_token(monkeypatch, tmp_path):
     config_dir = tmp_path / "config"
     config_dir.mkdir()

@@ -4,13 +4,17 @@ import argparse
 import sys
 
 from .digest import build_daily_digest, write_daily_digest
+from .openai_release_monitor import check_and_push
 from .pipeline import collect_all
 from .telegram import send_latest_digest
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="FeedHub CLI")
-    parser.add_argument("command", choices=["collect", "digest", "push-telegram"])
+    parser.add_argument(
+        "command",
+        choices=["collect", "digest", "push-telegram", "monitor-openai-releases"],
+    )
     args = parser.parse_args()
 
     try:
@@ -22,6 +26,11 @@ def main() -> None:
         if args.command == "push-telegram":
             digest_path = send_latest_digest()
             print(f"Sent digest from {digest_path} to Telegram.")
+            return
+
+        if args.command == "monitor-openai-releases":
+            updates = check_and_push()
+            print(f"Found {len(updates)} new OpenAI model release updates.")
             return
 
         digest_path = write_daily_digest()

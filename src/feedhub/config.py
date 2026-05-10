@@ -11,10 +11,14 @@ def project_root() -> Path:
     return Path(__file__).resolve().parents[2]
 
 
-def load_sources() -> List[Source]:
+def load_sources(include_disabled: bool = False) -> List[Source]:
     config_path = project_root() / "config" / "sources.json"
     payload = json.loads(config_path.read_text())
-    return [Source(**entry) for entry in payload if entry.get("enabled", True)]
+    return [
+        Source(**entry)
+        for entry in payload
+        if include_disabled or entry.get("enabled", True)
+    ]
 
 
 def load_json_config(name: str) -> Dict[str, Any]:

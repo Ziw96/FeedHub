@@ -10,6 +10,26 @@
     "enabled": true
   },
   {
+    "id": "chatgpt-release-notes",
+    "name": "ChatGPT release notes",
+    "type": "html",
+    "url": "https://help.openai.com/en/articles/6825453-chatgpt-release-notes",
+    "base_url": "https://help.openai.com",
+    "priority": 10,
+    "official": true,
+    "enabled": false
+  },
+  {
+    "id": "model-release-notes",
+    "name": "Model release notes",
+    "type": "html",
+    "url": "https://help.openai.com/en/articles/9624314-model-release-notes",
+    "base_url": "https://help.openai.com",
+    "priority": 10,
+    "official": true,
+    "enabled": false
+  },
+  {
     "id": "anthropic-news",
     "name": "Anthropic News",
     "type": "html",
